@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <style>
+      body {
+        width: 200px;
+        padding: 12px;
+      }
+      .toggle-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+      label {
+        font-weight: bold;
+      }
+      button {
+        background-color: #4caf50;
+        border: none;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 4px;
+        text-align: center;
+        text-decoration: none;
+        font-size: 12px;
+        display: inline-block;
+      }
+      button.off {
+        background-color: #f44336;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="toggle-container">
+      <label for="toggleBtn">Hide Shorts</label>
+      <button id="toggleBtn">ON</button>
+    </div>
+    <div id="status"></div>
+
+    <script src="./popup.js"></script>
+  </body>
+</html>
