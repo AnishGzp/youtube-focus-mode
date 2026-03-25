@@ -50,4 +50,4 @@ This project is evolving into a **complete YouTube Focus Mode**, where users can
 
 1. Clone the repository:
 
-   git clone https://github.com/your-username/your-repo-name.git
+   git clone https://github.com/AnishGzp/youtube-focus-mode.git
