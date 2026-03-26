@@ -50,7 +50,10 @@ This project is evolving into a **complete YouTube Focus Mode**, where users can
 
 1. Clone the repository:
 
+   ```bash
    git clone https://github.com/AnishGzp/youtube-focus-mode.git
+
+   ```
 
 2. Open Chrome Extensions page
 
