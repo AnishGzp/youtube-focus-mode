@@ -51,3 +51,25 @@ This project is evolving into a **complete YouTube Focus Mode**, where users can
 1. Clone the repository:
 
    git clone https://github.com/AnishGzp/youtube-focus-mode.git
+
+2. Open Chrome Extensions page
+
+   Open Chrome and go to: chrome://extensions/
+
+   Or: Menu (⋮) → Extensions → Manage Extensions
+
+3. Enable Developer Mode
+
+   Turn on Developer mode (top right corner)
+
+4. Load the extension
+
+   Click "Load unpacked"
+
+   Select the cloned project folder (youtube-focus-mode)
+
+5. Start using
+
+   The extension will now appear in your toolbar
+
+   Open YouTube and enjoy a distraction-free experience 🎯
