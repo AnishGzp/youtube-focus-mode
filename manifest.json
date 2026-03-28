@@ -1,19 +1,28 @@
 {
   "manifest_version": 3,
   "name": "YouTube Focus Mode",
-  "version": "1.0",
+  "version": "2.0",
   "description": "Remove Shorts, comments, and recommendations from YouTube for a distraction-free experience.",
-  "permissions": ["storage", "activeTab"],
+  "permissions": ["storage", "activeTab", "alarms", "notifications"],
   "host_permissions": ["*://*.youtube.com/*"],
   "action": {
     "default_popup": "popup.html",
     "default_icon": "images/icon.png"
+  },
+  "background": {
+    "service_worker": "background.js"
   },
   "content_scripts": [
     {
       "matches": ["*://*.youtube.com/*"],
       "js": ["content.js"],
       "run_at": "document_start"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["images/*"],
+      "matches": ["*://*.youtube.com/*"]
     }
   ]
 }

@@ -2,43 +2,36 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <style>
-      body {
-        width: 200px;
-        padding: 12px;
-      }
-      .toggle-container {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 10px;
-      }
-      label {
-        font-weight: bold;
-      }
-      button {
-        background-color: #4caf50;
-        border: none;
-        color: white;
-        padding: 5px 10px;
-        border-radius: 4px;
-        text-align: center;
-        text-decoration: none;
-        font-size: 12px;
-        display: inline-block;
-      }
-      button.off {
-        background-color: #f44336;
-      }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Youtube Focus Mode</title>
+    <link rel="stylesheet" href="popup.css" />
   </head>
   <body>
-    <div class="toggle-container">
-      <label for="toggleBtn">Hide Shorts</label>
-      <button id="toggleBtn">ON</button>
-    </div>
-    <div id="status"></div>
+    <header class="padding">
+      <div class="header_container">
+        <div class="header_container_left">
+          <h3>YT Focus Mode</h3>
+          <p>Stay focused. Remove distractions.</p>
+        </div>
+        <div class="header_container_right">
+          <div class="header_container_right_svg_container"></div>
+          <div class="header_container_right_toggle_container">
+            <input
+              type="checkbox"
+              name="mainToggle"
+              id="mainToggle"
+              class="toggleInput"
+            />
+            <label for="mainToggle" class="toggle"></label>
+          </div>
+        </div>
+      </div>
+      <div class="header_footer">
+        <span class="small_circle"></span>
+        <p>Active — filtering YouTube</p>
+      </div>
+    </header>
 
-    <script src="./popup.js"></script>
+    <script type="module" src="./ui/popup.js"></script>
   </body>
 </html>
