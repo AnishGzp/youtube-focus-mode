@@ -1,30 +1,32 @@
 # 🎯 YouTube Focus Mode
 
-A Chrome Extension to create a **distraction-free YouTube experience** by removing Shorts and other attention-grabbing elements.
+A Chrome Extension to create a **distraction-free YouTube experience** by removing attention-grabbing elements like Shorts, comments, and recommendations.
 
 ---
 
 ## ✨ Features
 
-- 🚫 Hide YouTube Shorts (homepage, feed, search, sidebar)
+- 🚫 Hide YouTube Shorts (homepage, feed, search results)
 - 🔁 Block direct access to `/shorts` (auto-redirect to homepage)
+- 🙈 Hide comments section
+- 📵 Hide recommended videos
 - ⚡ Works with YouTube's dynamic navigation (SPA support)
-- 🎯 Helps improve focus and productivity
 
 ---
 
 ## 🧠 Vision
 
-This project is evolving into a **complete YouTube Focus Mode**, where users can remove all distractions and use YouTube intentionally.
+This project is evolving into a **complete YouTube Focus Mode** — helping users consume content intentionally instead of getting distracted.
 
 ---
 
 ## 🔮 Upcoming Features
 
-- 🙈 Hide comments section
-- 📵 Hide recommended videos
-- 🧹 Clean homepage (minimal UI)
-- ⏱ Time tracking / usage control
+- 🧹 Minimal / clean homepage mode
+- ⏱ Time tracking & usage insights
+- 🎛 Granular toggles (per-page control)
+- 🌙 Enhanced UI/UX for better control panel
+- 🔒 Focus sessions / blocking modes
 
 ---
 
@@ -34,15 +36,16 @@ This project is evolving into a **complete YouTube Focus Mode**, where users can
 - Chrome Extensions API (Manifest V3)
 - DOM Manipulation
 - CSS Injection
+- Chrome Storage API
 
 ---
 
 ## ⚙️ How It Works
 
-- Injects CSS to hide Shorts elements instantly
-- Uses Chrome Storage API to store toggle state
+- Injects CSS to instantly hide distracting elements
+- Uses Chrome Storage API to persist user settings
 - Redirects `/shorts` pages to homepage
-- Handles YouTube's SPA navigation using URL change detection
+- Detects URL changes to support YouTube's SPA navigation
 
 ---
 
@@ -52,27 +55,22 @@ This project is evolving into a **complete YouTube Focus Mode**, where users can
 
    ```bash
    git clone https://github.com/AnishGzp/youtube-focus-mode.git
-
    ```
 
 2. Open Chrome Extensions page
-
-   Open Chrome and go to: chrome://extensions/
-
-   Or: Menu (⋮) → Extensions → Manage Extensions
+   Go to: `chrome://extensions/`
 
 3. Enable Developer Mode
-
-   Turn on Developer mode (top right corner)
+   Toggle **Developer mode** (top right corner)
 
 4. Load the extension
+   Click **"Load unpacked"** and select the project folder
 
-   Click "Load unpacked"
+5. Start using 🎯
+   Open YouTube and enjoy a distraction-free experience
 
-   Select the cloned project folder (youtube-focus-mode)
+---
 
-5. Start using
+## 💡 Note
 
-   The extension will now appear in your toolbar
-
-   Open YouTube and enjoy a distraction-free experience 🎯
+This extension is actively being developed — more powerful focus tools and customization options are coming soon.
