@@ -7,15 +7,15 @@
     <link rel="stylesheet" href="popup.css" />
   </head>
   <body>
-    <header class="padding">
+    <header>
       <div class="header_container">
         <div class="header_container_left">
           <h3>YT Focus Mode</h3>
           <p>Stay focused. Remove distractions.</p>
         </div>
         <div class="header_container_right">
-          <div class="header_container_right_svg_container"></div>
-          <div class="header_container_right_toggle_container">
+          <div class="svg_container header_container_right_svg_container"></div>
+          <div class="header_container_right_toggle_container toggle_container">
             <input
               type="checkbox"
               name="mainToggle"
@@ -31,6 +31,95 @@
         <p>Active — filtering YouTube</p>
       </div>
     </header>
+
+    <main>
+      <div class="main_container">
+        <!-- Shorts -->
+        <div class="main_container_toggle_container">
+          <div class="main_container_toggle_info">
+            <h3>Hide Shorts</h3>
+            <p>Remove shorts shelf and tabs</p>
+          </div>
+          <div class="toggle_container">
+            <input
+              type="checkbox"
+              name="shortsToggle"
+              id="shortsToggle"
+              class="toggleInput"
+            />
+            <label for="shortsToggle" class="toggle"></label>
+          </div>
+        </div>
+
+        <!-- Comments -->
+        <div class="main_container_toggle_container">
+          <div class="main_container_toggle_info">
+            <h3>Hide Comments</h3>
+            <p>Collapse Comments</p>
+          </div>
+          <div class="toggle_container">
+            <input
+              type="checkbox"
+              name="commentsToggle"
+              id="commentsToggle"
+              class="toggleInput"
+            />
+            <label for="commentsToggle" class="toggle"></label>
+          </div>
+        </div>
+
+        <!-- Recommendations -->
+        <div class="main_container_toggle_container">
+          <div class="main_container_toggle_info">
+            <h3>Hide Recommendations</h3>
+            <p>Remove suggested videos</p>
+          </div>
+          <div class="toggle_container">
+            <input
+              type="checkbox"
+              name="suggestedVideosToggle"
+              id="suggestedVideosToggle"
+              class="toggleInput"
+            />
+            <label for="suggestedVideosToggle" class="toggle"></label>
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <!-- <div class="main_container_toggle_container">
+          <div class="main_container_toggle_info">
+            <h3>Hide Sidebar</h3>
+            <p>Remove sidebar suggestions</p>
+          </div>
+          <div class="toggle_container">
+            <input
+              type="checkbox"
+              name="sidebarToggle"
+              id="sidebarToggle"
+              class="toggleInput"
+            />
+            <label for="sidebarToggle" class="toggle"></label>
+          </div>
+        </div> -->
+
+        <!-- Block shorts page -->
+        <div class="main_container_toggle_container">
+          <div class="main_container_toggle_info">
+            <h3>Block /shorts</h3>
+            <p>Redirect /shorts to home</p>
+          </div>
+          <div class="toggle_container">
+            <input
+              type="checkbox"
+              name="blockShortsToggle"
+              id="blockShortsToggle"
+              class="toggleInput"
+            />
+            <label for="blockShortsToggle" class="toggle"></label>
+          </div>
+        </div>
+      </div>
+    </main>
 
     <script type="module" src="./ui/popup.js"></script>
   </body>

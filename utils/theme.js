@@ -4,7 +4,7 @@ export function setTheme(theme) {
   document.documentElement.setAttribute("data-theme", theme);
 }
 
-function resolveTheme(theme) {
+export function resolveTheme(theme) {
   if (theme === "system") {
     return window.matchMedia("(prefers-color-scheme: dark)").matches
       ? "dark"
@@ -14,7 +14,9 @@ function resolveTheme(theme) {
 }
 
 export function initTheme() {
-  chrome.storage.local.get(["theme"], ({ theme = "system" }) => {
+  chrome.storage.local.get(["app"], ({ app }) => {
+    const theme = app?.theme ?? "system";
+
     const finalTheme = resolveTheme(theme);
     setTheme(finalTheme);
   });
@@ -22,7 +24,9 @@ export function initTheme() {
   const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
 
   mediaQuery.addEventListener("change", () => {
-    chrome.storage.local.get(["theme"], ({ theme = "system" }) => {
+    chrome.storage.local.get(["app"], ({ app }) => {
+      const theme = app?.theme ?? "system";
+
       if (theme === "system") {
         const updatedTheme = resolveTheme(theme);
         setTheme(updatedTheme);
@@ -36,18 +40,19 @@ export function handleThemeToggle() {
     ".header_container_right_svg_container",
   );
 
+  if (!iconContainer) return;
+
   iconContainer.addEventListener("click", () => {
-    chrome.storage.local.get(["theme"], ({ theme = "system" }) => {
-      const currentTheme =
-        theme === "system"
-          ? window.matchMedia("(prefers-color-scheme: dark)").matches
-            ? "dark"
-            : "light"
-          : theme;
+    chrome.storage.local.get(["app"], ({ app }) => {
+      const theme = app?.theme ?? "system";
+
+      const currentTheme = resolveTheme(theme);
 
       const newTheme = currentTheme === "dark" ? "light" : "dark";
 
-      chrome.storage.local.set({ theme: newTheme });
+      const updatedApp = { ...app, theme: newTheme };
+
+      chrome.storage.local.set({ app: updatedApp });
 
       document.documentElement.setAttribute("data-theme", newTheme);
       setThemeIcon(newTheme, "header_container_right_svg_container");

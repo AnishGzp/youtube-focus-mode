@@ -1,8 +1,14 @@
 export const DEFAULT_SETTINGS = {
-  theme: "system",
+  app: {
+    enabled: false,
+    theme: "system",
+  },
+
   features: {
-    shorts: true,
-    comments: true,
-    recommendations: true,
+    shorts: { enabled: false },
+    comments: { enabled: false },
+    recommendations: { enabled: false },
+    sidebar: { enabled: false },
+    blockShorts: { enabled: false },
   },
 };

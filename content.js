@@ -1,91 +1,119 @@
-// content.js
-const STYLE_ID = "yt-shorts-hide-style";
-
-function getHideStyle() {
-  return `
-    /* Hide the Shorts shelf on homepage */
-    ytd-reel-shelf-renderer {
-      display: none !important;
-    }
-
-    /* Hide any rich item that contains a Shorts link (homepage, search) */
+// ---- featureStyle ----
+const featureStyle = {
+  shorts: `
+    ytd-reel-shelf-renderer { display: none !important; }
     ytd-rich-item-renderer:has(a[href^="/shorts/"]),
     ytd-video-renderer:has(a[href^="/shorts/"]),
-    ytd-grid-video-renderer:has(a[href^="/shorts/"]) {
-      display: none !important;
-    }
+    ytd-grid-video-renderer:has(a[href^="/shorts/"]) { display: none !important; }
+    ytd-reel-item-renderer { display: none !important; }
+    a[href^="/shorts/"] { display: none !important; }
+    a[title="Shorts"] { display: none !important; }
+  `,
+  comments: `ytd-comments { display: none !important; }`,
+  recommendations: `#related { display: none !important; }`,
+};
 
-    /* Hide individual reel items (used in some layouts) */
-    ytd-reel-item-renderer {
-      display: none !important;
-    }
+// ---- styleEngine ----
+const STYLE_PREFIX = "yt-focus-";
 
-    /* Hide any link that points to a Shorts video (catches all) */
-    a[href^="/shorts/"] {
-      display: none !important;
-    }
+function applyStyle(feature, css) {
+  const id = STYLE_PREFIX + feature;
+  if (document.getElementById(id)) return;
 
-    /* Hide the "Shorts" link in the sidebar */
-    a[title="Shorts"] {
-      display: none !important;
-    }
-  `;
+  const style = document.createElement("style");
+  style.id = id;
+  style.textContent = css;
+
+  document.head.appendChild(style);
 }
 
-function setShortsHidden(hide) {
-  const existing = document.getElementById(STYLE_ID);
-  if (hide) {
-    if (!existing) {
-      const style = document.createElement("style");
-      style.id = STYLE_ID;
-      style.textContent = getHideStyle();
-      document.head.appendChild(style);
-    }
-  } else {
-    existing?.remove();
+function removeStyle(feature) {
+  document.getElementById(STYLE_PREFIX + feature)?.remove();
+}
+
+// ---- features ----
+function handleFeature(feature, enabled) {
+  const css = featureStyle[feature];
+  if (css) {
+    enabled ? applyStyle(feature, css) : removeStyle(feature);
   }
 }
 
-function redirectShorts() {
-  if (location.pathname.startsWith("/shorts")) {
+// ---- storage ----
+const DEFAULT_SETTINGS = {
+  app: { enabled: false, theme: "system" },
+  features: {
+    shorts: { enabled: false },
+    comments: { enabled: false },
+    recommendations: { enabled: false },
+    blockShorts: { enabled: false },
+  },
+};
+
+function getSettingsForContent() {
+  return new Promise((resolve) => {
+    chrome.storage.local.get(["app", "features"], (data) => {
+      resolve({
+        app: data.app || DEFAULT_SETTINGS.app,
+        features: data.features || DEFAULT_SETTINGS.features,
+      });
+    });
+  });
+}
+
+window.__ytFocus = window.__ytFocus || {
+  shortsInterval: null,
+  currentFeatures: {},
+};
+
+function handleShortsRedirect(enabled) {
+  if (!enabled) return;
+
+  if (
+    location.pathname === "/shorts" ||
+    location.pathname.startsWith("/shorts/")
+  ) {
     window.location.replace("/");
   }
 }
 
-function init() {
-  chrome.storage.local.get("hideShorts", (data) => {
-    const hide = data.hideShorts || false;
+// ---- main ----
+async function applyAll() {
+  const { app, features } = await getSettingsForContent();
 
-    setShortsHidden(hide);
-    if (hide) {
-      redirectShorts();
+  if (!app.enabled) {
+    Object.keys(featureStyle).forEach((feature) => {
+      removeStyle(feature);
+    });
+    if (globalThis.__ytFocus?.shortsInterval) {
+      clearInterval(globalThis.__ytFocus.shortsInterval);
+      globalThis.__ytFocus.shortsInterval = null;
     }
+    return;
+  }
+
+  window.__ytFocus.currentFeatures = features;
+
+  Object.entries(features).forEach(([feature, config]) => {
+    handleFeature(feature, config.enabled);
   });
+
+  if (window.__ytFocus.shortsInterval) {
+    clearInterval(window.__ytFocus.shortsInterval);
+    window.__ytFocus.shortsInterval = null;
+  }
+
+  if (window.__ytFocus.currentFeatures.blockShorts.enabled) {
+    handleShortsRedirect(true);
+
+    window.__ytFocus.shortsInterval = setInterval(() => {
+      handleShortsRedirect(true);
+    }, 800);
+  }
 }
 
-// Listen for messages from the popup
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  if (request.action === "toggle") {
-    setShortsHidden(request.state);
-    if (request.state) {
-      redirectShorts();
-    }
-  }
+applyAll();
+
+chrome.storage.onChanged.addListener((changes, area) => {
+  if (area === "local") applyAll();
 });
-
-// Handle YouTube SPA navigation
-let lastUrl = location.href;
-
-setInterval(() => {
-  if (location.href !== lastUrl) {
-    lastUrl = location.href;
-    chrome.storage.local.get("hideShorts", (data) => {
-      if (data.hideShorts) {
-        setShortsHidden(true);
-        redirectShorts();
-      }
-    });
-  }
-}, 800);
-
-init();

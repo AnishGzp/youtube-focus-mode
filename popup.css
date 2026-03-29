@@ -1,6 +1,7 @@
 :root {
   --bg: white;
   --text: black;
+  --border-color: #2d2f39;
   --text-light: #818898;
   --toggle-bg-on: #5e76ec;
   --toggle-bg-off: #454854;
@@ -15,6 +16,7 @@
 [data-theme="light"] {
   --bg: white;
   --text: black;
+  --border-color: #e5e7eb;
 }
 
 [data-theme="dark"] {
@@ -22,15 +24,16 @@
   --text: white;
 }
 
-.padding {
-  padding: 0 12px;
-}
-
 body {
-  width: 350px;
+  width: 320px;
   background-color: var(--bg);
   color: var(--text);
-  padding: 12px 0;
+  padding: 12px 12px;
+}
+
+header {
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 10px;
 }
 
 .header_container {
@@ -46,7 +49,7 @@ body {
   gap: 5px;
 }
 
-.header_container_left p {
+p {
   color: var(--text-light);
 }
 
@@ -57,19 +60,24 @@ body {
   gap: 12px;
 }
 
-.header_container_right_svg_container {
+.svg_container {
   width: 24px;
   height: 24px;
   cursor: pointer;
   color: var(--text);
 }
 
-.header_container_right_toggle_container {
+.toggle_container {
   display: flex;
   align-items: center;
 }
 
-#mainToggle {
+#mainToggle,
+#shortsToggle,
+#commentsToggle,
+#suggestedVideosToggle,
+#sidebarToggle,
+#blockShortsToggle {
   display: none;
   opacity: 0;
 }
@@ -119,4 +127,29 @@ body {
   width: 10px;
   background-color: #4ade80;
   border-radius: 50%;
+}
+
+/* Main Body Starts */
+
+.main_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+}
+
+.main_container_toggle_container {
+  padding: 8px 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+}
+
+.main_container_toggle_info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
